@@ -1,0 +1,136 @@
+Write a Shell program to check whether given number is prime or not.
+
+Program:
+echo "Prime number program......"
+read number
+i=2
+flag=0
+while [ $i -le `expr $number / 2` ]
+do
+if [ `expr $number % $i` -eq 0 ]
+then
+flag=1
+fi
+i=`expr $i + 1`
+done
+if [ $flag -eq 1 ]
+then
+echo "The number is Not Prime"
+else
+echo "The number is Prime"
+fi
+
+Write a shell script which will display Fibonacci series up to the given range. 
+
+Program:
+echo "How many number of terms to be generated ?"
+ read n
+ x=0
+ y=1
+ i=2
+ echo "Fibonacci Series up to $n terms :"
+ echo "$x"
+ echo "$y"
+ while [ $i -lt $n ]
+ do
+ i=`expr $i + 1 `
+ z=`expr $x + $y `
+ echo "$z"
+ x=$y
+ y=$z
+ done
+
+Write a shell script to check whether the given number is Armstrong or not. 
+
+Program:
+echo "Enter the number"
+read n
+function ams
+{
+t=$n
+s=0
+b=0
+c=10
+while [ $n -gt $b ]
+do
+r=$((n % c))
+i=$((r * r * r))
+s=$((s + i))
+n=$((n / c))
+done
+echo $s
+if [ $s == $t ]
+then
+echo "Amstrong number"
+else
+echo "Not an Armstrong number"
+fi
+}
+result=`ams $n`
+echo "$result"
+
+Write a shell script to find minimum and maximum elements in the given list of 
+elements.
+Program: 
+read -a integers
+biggest=${integers[0]}
+smallest=${integers[0]}
+for i in ${integers[@]}
+do
+ if [[ $i -gt $biggest ]]
+ then
+ biggest="$i"
+ fi
+ if [[ $i -lt $smallest ]]
+ then
+ smallest="$i"
+ fi
+done
+echo "The largerst number is $biggest"
+echo "The smallest number is $smallest"
+
+Write a shell program to check whether the given string is palindrome or not. 
+
+Program: 
+clear
+echo "Enter the string:" read str
+echo
+len=`echo $str | wc -c`
+len=`expr $len - 1`
+i=1
+j=`expr $len / 2`
+while test $i -le $j do
+k=`echo $str | cut -c $i` l=`echo $str | cut -c $len`
+if test $k != $l
+then
+echo "String is not palindrome" 
+exit
+fi
+i=`expr $i + 1` 
+len=`expr $len - 1` 
+done
+echo "String is palindrome"
+
+Write a shell script to compute no. of characters and words in each line of given file 
+
+Program: 
+echo Enter the filename
+read file
+c=`cat $file | wc -c`
+w=`cat $file | wc -w`
+l=`grep -c "." $file`
+echo Number of characters in $file is $c
+echo Number of words in $file is $w
+echo Number of lines in $file is $l
+
+Write a shell script to check whether the given input is a number or a string 
+
+Program:
+read -p "Input : " inp
+while [[ "$inp" =~ [^a-zA-Z0-9] || -z "$inp" ]]
+do 
+ echo "The input contains special characters." 
+ echo "Input only alphanumeric characters." 
+ read -p "Input : " inp
+done
+echo "Successful Input"
