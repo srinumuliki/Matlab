@@ -1,0 +1,907 @@
+1.a) To display n even natural numbers and their sum
+----------------------------------------------------
+
+#include<stdio.h>
+main(){
+	int n,i,sum=0;
+	printf("Enter n : ");
+	scanf("%d",&n);
+	for(i=1;i<=n;i++){
+		int even_number=2*i;
+		printf("\n%d",even_number);
+		sum=sum+even_number;
+	}
+	printf("\nSum is : %d",sum);
+}
+
+
+1.b) Factorial of a number
+--------------------------
+
+#include<stdio.h>
+main(){
+	int n,f=1;
+	printf("Enter number : ");
+	scanf("%d",&n);
+	while(n!=0){
+		f=f*n;
+		n--;
+	}
+	printf("Factorial is : %d",f);
+}
+
+
+2) Transpose of a matrix
+------------------------
+
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 3
+
+// Function to transpose a matrix
+void transpose(int mat[ROWS][COLS]) {
+    int temp;
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = i + 1; j < COLS; j++) {
+            // Swap element at position (i, j) with element at position (j, i)
+            temp = mat[i][j];
+            mat[i][j] = mat[j][i];
+            mat[j][i] = temp;
+        }
+    }
+}
+
+// Function to print a matrix
+void printMatrix(int mat[ROWS][COLS]) {
+    printf("Transposed Matrix:\n");
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            printf("%d ", mat[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int matrix[ROWS][COLS];
+
+    // Input matrix elements
+    printf("Enter elements of %d x %d matrix:\n", ROWS, COLS);
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    // Transpose the matrix
+    transpose(matrix);
+
+    // Print the transposed matrix
+    printMatrix(matrix);
+
+    return 0;
+}
+
+
+3.a) Prime or not
+-----------------
+
+#include<stdio.h>
+main(){
+	int n,i,count=0;
+	printf("Enter n : ");
+	scanf("%d",&n);
+	for(i=1;i<=n;i++){
+		if(n%i==0){
+			count++;
+		}
+	}
+	if(count>2){
+		printf("It is not a prime number");
+	}
+	else{
+		printf("It is a prime number");
+	}
+}
+
+
+3.b) nth fibonacci number
+-------------------------
+
+#include <stdio.h>
+int fibonacci(int n) {
+ if (n == 0 || n == 1) {
+ return n;
+ }
+ else {
+ return fibonacci(n-1) + fibonacci(n-2);
+ }
+}
+int main() {
+ printf("%d\n", fibonacci(10));
+ return 0;
+}
+
+
+4.a) recursive and non recursive C program for calculation of Factorial of an integer
+-------------------------------------------------------------------------------------
+
+#include <stdio.h>
+int factorial_recursive(int n) {
+ if (n == 0 || n == 1) {
+ return 1;
+ } else {
+ return n * factorial_recursive(n - 1);
+ }
+}
+int factorial_non_recursive(int n) {
+ int result = 1;
+ while (n > 1) {
+ result *= n;
+ n--;
+ }
+ return result;
+}
+int main() {
+ int n;
+ printf("Enter a number: ");
+ scanf("%d", &n);
+ if (n < 0) {
+ printf("Factorial is not defined for negative numbers.\n");
+ } else {
+ int result = factorial_non_recursive(n);
+ printf("Non recussion Factorial of %d is %d.\n", n, result);
+ return 0;
+}
+
+
+4.b) recursive and non recursive C program for calculation of GCD (n, m)
+------------------------------------------------------------------------
+
+#include <stdio.h>
+// Function to calculate GCD recursively
+int gcd_recursive(int n, int m) {
+ if (m == 0) {
+ return n;
+ } else {
+ return gcd_recursive(m, n % m);
+ }
+}
+// Function to calculate GCD non-recursively
+int gcd_non_recursive(int n, int m) {
+ int temp;
+ while (m != 0) {
+ temp = n;
+ n = m;
+ m = temp % m;
+ }
+ return n;
+}
+int main() {
+ int n, m;
+ printf("Enter two numbers: ");
+ scanf("%d %d", &n, &m);
+ if (n < 0 || m < 0) {
+ printf("GCD is not defined for negative numbers.\n");
+ } else {
+ int result_recursive = gcd_recursive(n, m);
+ int result_non_recursive = gcd_non_recursive(n, m);
+
+ printf("GCD of %d and %d (recursive) is: %d\n", n, m, result_recursive);
+ printf("GCD of %d and %d (non-recursive) is: %d\n", n, m, result_non_recursive);
+ }
+ return 0;
+}
+
+
+5) recursive and non recursive functions to perform Binary search for a
+Key value in a given list.
+-----------------------------------------------------------------------
+
+#include <stdio.h>
+int binarySearchNonRecursive(int arr[], int n, int key) {
+ int low = 0, high = n - 1;
+ while (low <= high) {
+ int mid = low + (high - low) / 2;
+ if (arr[mid] == key)
+ return mid; // Key found, return index
+ else if (arr[mid] < key)
+ low = mid + 1; // Key is in the right half
+ else
+ high = mid - 1; // Key is in the left half
+ }
+ return -1; // Key not found
+}
+int binarySearchRecursive(int arr[], int key, int low, int high) {
+ if (low > high)
+ return -1; // Key not found
+ int mid = low + (high - low) / 2;
+ if (arr[mid] == key)
+ return mid; // Key found, return index
+ else if (arr[mid] < key)
+ return binarySearchRecursive(arr, key, mid + 1, high); // Search in the right half
+ else
+ return binarySearchRecursive(arr, key, low, mid - 1); // Search in the left half
+}
+int main() {
+ int n, key;
+ printf("Enter the number of elements in the list: ");
+ scanf("%d", &n);
+ int arr[n];
+ printf("Enter %d sorted elements: ", n);
+ for (int i = 0; i < n; i++) {
+ scanf("%d", &arr[i]);
+ }
+ printf("Enter the key value to search: ");
+ scanf("%d", &key);
+ int result_non_recursive = binarySearchNonRecursive(arr, n, key);
+ if (result_non_recursive != -1) {
+ printf("Key %d found at index %d (non-recursive).\n", key, result_non_recursive);
+ } else {
+ printf("Key %d not found (non-recursive).\n", key);
+ }
+ int result_recursive = binarySearchRecursive(arr, key, 0, n - 1);
+ if (result_recursive != -1) {
+ printf("Key %d found at index %d (recursive).\n", key, result_recursive);
+ } else {
+ printf("Key %d not found (recursive).\n", key);
+ }
+ return 0;
+}
+
+
+6) Stack (its operations) using arrays
+--------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 10
+int stack[MAX];
+int top = -1;
+void push(int);
+int pop();
+void display();
+int main()
+{
+ int ch, val;
+ printf("\n1. Push in stack");
+ printf("\n2. Pop from stack");
+ printf("\n3. Display stack");
+ printf("\n4. Exit");
+ do
+ {
+ printf("\n\nEnter choice: ");
+ scanf("%d", &ch);
+ switch (ch)
+ {
+ case 1:
+ printf("\nEnter value to be pushed:");
+ scanf("%d", &val);
+ push(val);
+ break;
+ case 2:
+ val = pop();
+ if (val != -1)
+ printf("\n The number deleted is : %d", val);
+ break;
+ case 3:
+ display();
+ break;
+ case 4:
+ printf("\nExit");
+ break;
+ default:
+ printf("\nInvalid Choice");
+ }
+ } while (ch != 4);
+ return 0;
+}
+void push(int val)
+{
+ if (top == MAX - 1)
+ printf("\nStack is full");
+ else
+ {
+ top++;
+ stack[top] = val;
+ }
+}
+int pop()
+{
+ int val;
+ if (top == -1)
+ {
+ printf("\nStack is empty");
+ return -1;
+ }
+ else
+ {
+ val = stack[top];
+ top--;
+ return val;
+ }
+}
+void display()
+{
+ int i;
+ if (top == -1)
+ printf("\nStack is empty");
+ else
+ {
+ printf("\nStack is...\n");
+ for (i = top; i >= 0; i--)
+ printf("%d\n", stack[i]);
+ }
+}
+
+7) Queue (its operations) using linked lists
+--------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+ int data;
+ struct Node* next;
+};
+struct Node* front = NULL;
+struct Node* rear = NULL;
+int isEmpty() {
+ return (front == NULL);
+}
+void enqueue(int value) {
+ struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+ if (newNode == NULL) {
+ printf("Memory allocation failed\n");
+ exit(EXIT_FAILURE);
+ }
+ newNode->data = value;
+ newNode->next = NULL;
+ if (isEmpty()) {
+ front = rear = newNode;
+ } else {
+ rear->next = newNode;
+ rear = newNode;
+ }
+}
+int dequeue() {
+ if (isEmpty()) {
+ printf("Queue Underflow\n");
+ exit(EXIT_FAILURE);
+ }
+ struct Node* temp = front;
+ int removedItem = temp->data;
+ front = temp->next;
+ free(temp);
+ if (front == NULL) {
+ rear = NULL;
+ }
+ return removedItem;
+}
+void display() {
+ if (isEmpty()) {
+ printf("Queue is empty\n");
+ } else {
+ struct Node* current = front;
+ printf("Queue elements: ");
+ while (current != NULL) {
+ printf("%d ", current->data);
+ current = current->next;
+ }
+ printf("\n");
+ }
+}
+int main() {
+ int choice, value;
+ do {
+ printf("1. Enqueue\n");
+ printf("2. Dequeue\n");
+ printf("3. Display\n");
+ printf("4. Exit\n");
+ printf("Enter your choice: ");
+ scanf("%d", &choice);
+ switch (choice) {
+ case 1:
+ printf("Enter the value to enqueue: ");
+ scanf("%d", &value);
+ enqueue(value);
+ break;
+ case 2:
+ if (!isEmpty()) {
+ printf("Dequeued element: %d\n", dequeue());
+ }
+ break;
+ case 3:
+ display();
+ break;
+ case 4:
+ printf("Exiting...\n");
+ break;
+ default:
+ printf("Invalid choice. Please enter a valid option.\n");
+ }
+ } while (choice != 4);
+ return 0;
+}
+
+
+8) Single linkedlist
+--------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define a structure for a node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to insert a node at the end of the linked list
+void insert(struct Node** head_ref, int new_data) {
+    // Allocate memory for new node
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    // Set data for the new node
+    new_node->data = new_data;
+    new_node->next = NULL;
+    // If the linked list is empty, set the new node as the head
+    if (*head_ref == NULL) {
+        *head_ref = new_node;
+        return;
+    }
+    // Traverse to the last node
+    struct Node* last = *head_ref;
+    while (last->next != NULL)
+        last = last->next;
+    // Insert the new node at the end
+    last->next = new_node;
+}
+
+// Function to find the middle of the linked list
+void findMiddle(struct Node* head) {
+    struct Node *slow_ptr = head, *fast_ptr = head;
+    if (head != NULL) {
+        while (fast_ptr != NULL && fast_ptr->next != NULL) {
+            fast_ptr = fast_ptr->next->next;
+            slow_ptr = slow_ptr->next;
+        }
+        printf("The middle element is %d\n", slow_ptr->data);
+    }
+}
+
+// Function to print the linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int n, data;
+    
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+    
+    printf("Enter the data for each node:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &data);
+        insert(&head, data);
+    }
+    
+    printf("Linked List: ");
+    printList(head);
+    
+    findMiddle(head);
+    
+    return 0;
+}
+
+
+9) Traversing a binary tree in preorder, in order and post order
+----------------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+ int data;
+ struct Node* left;
+ struct Node* right;
+};
+struct Node* createNode(int value) {
+ struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+ newNode->data = value;
+ newNode->left = NULL;
+ newNode->right = NULL;
+ return newNode;
+}
+struct Node* constructTree() {
+ int value;
+ printf("Enter data for a node (-1 for no node): ");
+ scanf("%d", &value);
+ if (value == -1) {
+ return NULL;
+ }
+ struct Node* root = createNode(value);
+ printf("Enter left child of %d\n", value);
+ root->left = constructTree();
+ printf("Enter right child of %d\n", value);
+ root->right = constructTree();
+ return root;
+}
+void preorderTraversal(struct Node* root) {
+ if (root == NULL) {
+ return;
+ }
+ printf("%d ", root->data);
+ preorderTraversal(root->left);
+ preorderTraversal(root->right);
+}
+void inorderTraversal(struct Node* root) {
+ if (root == NULL) {
+ return;
+ }
+ inorderTraversal(root->left);
+ printf("%d ", root->data);
+ inorderTraversal(root->right);
+}
+void postorderTraversal(struct Node* root) {
+ if (root == NULL) {
+ return;
+ }
+ postorderTraversal(root->left);
+ postorderTraversal(root->right);
+ printf("%d ", root->data);
+}
+int main() {
+ struct Node* root = NULL;
+ printf("Construct the binary tree:\n");
+ root = constructTree();
+ printf("\nPreorder Traversal: ");
+ preorderTraversal(root);
+ printf("\nInorder Traversal: ");
+ inorderTraversal(root);
+ printf("\nPostorder Traversal: ");
+ postorderTraversal(root);
+ return 0;
+}
+
+10) Binary Search trees- Insertion and deletion
+-----------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+ int data;
+ struct Node* left;
+ struct Node* right;
+};
+struct Node* createNode(int value) {
+ struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+ newNode->data = value;
+ newNode->left = NULL;
+ newNode->right = NULL;
+ return newNode;
+}
+struct Node* insert(struct Node* root, int value) {
+ if (root == NULL) {
+ return createNode(value);
+ }
+ if (value < root->data) {
+ root->left = insert(root->left, value);
+ } else if (value > root->data) {
+ root->right = insert(root->right, value);
+ }
+ return root;
+}
+struct Node* minValueNode(struct Node* node) {
+ struct Node* current = node;
+ while (current->left != NULL) {
+ current = current->left;
+ }
+ return current;
+}
+struct Node* deleteNode(struct Node* root, int value) {
+ if (root == NULL) {
+ return root;
+ }
+ if (value < root->data) {
+ root->left = deleteNode(root->left, value);
+ } else if (value > root->data) {
+ root->right = deleteNode(root->right, value);
+ } else {
+ if (root->left == NULL) {
+ struct Node* temp = root->right;
+ free(root);
+ return temp;
+ } else if (root->right == NULL) {
+ struct Node* temp = root->left;
+ free(root);
+ return temp;
+ }
+ struct Node* temp = minValueNode(root->right);
+ root->data = temp->data;
+ root->right = deleteNode(root->right, temp->data);
+ }
+ return root;
+}
+void inorderTraversal(struct Node* root) {
+ if (root != NULL) {
+ inorderTraversal(root->left);
+ printf("%d ", root->data);
+ inorderTraversal(root->right);
+ }
+}
+int main() {
+ struct Node* root = NULL;
+ int choice, value;
+ do {
+ printf("1. Insert\n");
+ printf("2. Delete\n");
+ printf("3. Display (Inorder Traversal)\n");
+ printf("4. Exit\n");
+ printf("Enter your choice: ");
+ scanf("%d", &choice);
+ switch (choice) {
+ case 1:
+ printf("Enter the value to insert: ");
+ scanf("%d", &value);
+ root = insert(root, value);
+ break;
+ case 2:
+ printf("Enter the value to delete: ");
+ scanf("%d", &value);
+ root = deleteNode(root, value);
+ break;
+ case 3:
+ printf("Inorder Traversal: ");
+ inorderTraversal(root);
+ printf("\n");
+ break;
+ case 4:
+ printf("Exiting...\n");
+ break;
+ default:
+ printf("Invalid choice. Please enter a valid option.\n");
+ }
+ } while (choice != 4);
+ return 0;
+}
+
+
+11) Bubble sort, to sort a given list of integers in ascending order
+--------------------------------------------------------------------
+
+#include<stdio.h>
+void BubbleSort(int A[], int n){
+ int cnt = 0;
+ for(int i = 0 ; i < n - 1 ; i++){
+ int flage = 0;
+ for(int j = 0 ; j < n- i -1 ; j++){
+ cnt++;
+ if(A[j] > A[j+1]){
+ int temp = A[j+1];
+ A[j+1] = A[j];
+ A[j] = temp;
+ flage = 1;//
+ }
+ }
+ if(flage == 0){
+ break;
+ }
+ }
+ printf("%d\n",cnt);
+}
+int main(){
+ int n;
+ scanf("%d", &n);
+ int A[n];
+ for(int i=0; i<n; i++){
+ scanf("%d", &A[i]);
+ }
+ BubbleSort(A,n);
+ //time complexity of bubble sort is O(n^2)
+ //array will be sorted
+ for(int i = 0 ; i < n ; i++){
+ printf("%d ", A[i]);
+ }
+}
+
+12) Merge sort
+-------------------
+
+#include <stdio.h>
+void merge(int arr[], int left, int mid, int right) {
+ int n1 = mid - left + 1;
+ int n2 = right - mid;
+ int leftArray[n1], rightArray[n2];
+ for (int i = 0; i < n1; i++) {
+ leftArray[i] = arr[left + i];
+ }
+ for (int j = 0; j < n2; j++) {
+ rightArray[j] = arr[mid + 1 + j];
+ }
+ int i = 0, j = 0, k = left;
+ while (i < n1 && j < n2) {
+ if (leftArray[i] <= rightArray[j]) {
+ arr[k] = leftArray[i];
+ i++;
+ } else {
+ arr[k] = rightArray[j];
+ j++;
+ }
+ k++;
+ }
+ while (i < n1) {
+ arr[k] = leftArray[i];
+ i++;
+ k++;
+ }
+ while (j < n2) {
+ arr[k] = rightArray[j];
+ j++;
+ k++;
+ }
+}
+void mergeSort(int arr[], int left, int right) {
+ if (left < right) {
+ int mid = left + (right - left) / 2;
+ mergeSort(arr, left, mid);
+ mergeSort(arr, mid + 1, right);
+ merge(arr, left, mid, right);
+ }
+}
+void printArray(int arr[], int size) {
+ for (int i = 0; i < size; i++) {
+ printf("%d ", arr[i]);
+ }
+ printf("\n");
+}
+int main() {
+ int size;
+ printf("Enter the size of the array: ");
+ scanf("%d", &size);
+ int arr[size];
+ printf("Enter the elements of the array:\n");
+ for (int i = 0; i < size; i++) {
+ scanf("%d", &arr[i]);
+ }
+ printf("Original array: ");
+ printArray(arr, size);
+ mergeSort(arr, 0, size - 1);
+ printf("Sorted array: ");
+ printArray(arr, size);
+ return 0;
+}
+
+13) to append multiple lines at the end of a text file
+------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+ FILE *file;
+ char lines[][100] = {"Line 1: Appended line 1", "Line 2: Appended line 2", "Line 3: Appended line
+3"};
+ int num_lines = sizeof(lines) / sizeof(lines[0]);
+ int i;
+ file = fopen("example.txt", "a");
+ if (file == NULL) {
+ printf("Error opening the file.\n");
+ return 1;
+ }
+ for (i = 0; i < num_lines; i++) {
+ fprintf(file, "%s\n", lines[i]);
+ }
+ fclose(file);
+ printf("Lines appended successfully.\n");
+ return 0;
+}
+
+14) recursive and non recursive functions to perform Linear search for a
+Key value in a given list
+------------------------------------------------------------------------ 
+
+#include <stdio.h>
+int linearSearchNonRecursive(int arr[], int n, int key) {
+ for (int i = 0; i < n; i++) {
+ if (arr[i] == key)
+ return i; // Key found, return index
+ }
+ return -1; // Key not found
+}
+int linearSearchRecursive(int arr[], int key, int index, int n) {
+ if (index >= n)
+ return -1; // Key not found
+ if (arr[index] == key)
+ return index; // Key found, return index
+ return linearSearchRecursive(arr, key, index + 1, n); // Recursive call
+}
+int main() {
+ int n, key;
+ printf("Enter the number of elements in the list: ");
+ scanf("%d", &n);
+ int arr[n];
+ printf("Enter %d elements: ", n);
+ for (int i = 0; i < n; i++) {
+ scanf("%d", &arr[i]);
+ }
+ printf("Enter the key value to search: ");
+ scanf("%d", &key);
+ int result_non_recursive = linearSearchNonRecursive(arr, n, key);
+ if (result_non_recursive != -1) {
+ printf("Key %d found at index %d (non-recursive).\n", key, result_non_recursive);
+ } else {
+ printf("Key %d not found (non-recursive).\n", key);
+ }
+ int result_recursive = linearSearchRecursive(arr, key, 0, n);
+ if (result_recursive != -1) {
+ printf("Key %d found at index %d (recursive).\n", key, result_recursive);
+ } else {
+ printf("Key %d not found (recursive).\n", key);
+ }
+return 0;
+}
+
+15) Prim's Algorithm
+--------------------
+
+#include <stdio.h>
+#include <limits.h>
+#define MAX_VERTICES 20
+int minKey(int key[], int mstSet[], int vertices) {
+ int min = INT_MAX, min_index;
+ for (int v = 0; v < vertices; v++) {
+ if (mstSet[v] == 0 && key[v] < min) {
+ min = key[v];
+ min_index = v;
+ }
+ }
+ return min_index;
+}
+void printMST(int parent[], int graph[MAX_VERTICES][MAX_VERTICES], int vertices) {
+ printf("Edge \tWeight\n");
+ for (int i = 1; i < vertices; i++)
+ printf("%d - %d \t%d \n", parent[i], i, graph[i][parent[i]]);
+}
+void primMST(int graph[MAX_VERTICES][MAX_VERTICES], int vertices) {
+ int parent[MAX_VERTICES];
+ int key[MAX_VERTICES];
+ int mstSet[MAX_VERTICES];
+ for (int i = 0; i < vertices; i++) {
+ key[i] = INT_MAX;
+ mstSet[i] = 0;
+ }
+ key[0] = 0;
+ parent[0] = -1;
+ for (int count = 0; count < vertices - 1; count++) {
+ int u = minKey(key, mstSet, vertices);
+ mstSet[u] = 1;
+ for (int v = 0; v < vertices; v++) {
+ if (graph[u][v] && mstSet[v] == 0 && graph[u][v] < key[v]) {
+ parent[v] = u;
+ key[v] = graph[u][v];
+ }
+ }
+ }
+ printMST(parent, graph, vertices);
+}
+int main() {
+ int vertices;
+ printf("Enter the number of vertices (maximum %d): ", MAX_VERTICES);
+ scanf("%d", &vertices);
+ int graph[MAX_VERTICES][MAX_VERTICES];
+ printf("Enter the adjacency matrix:\n");
+ for (int i = 0; i < vertices; i++) {
+ for (int j = 0; j < vertices; j++) {
+ scanf("%d", &graph[i][j]);
+ }
+ }
+ primMST(graph, vertices);
+ return 0;
+}
+
+
+
